@@ -60,17 +60,18 @@ public class EventWatermarkWithProcessTimeExample {
         /** The maximum timestamp encountered so far. */
         private long maxTimestamp;
 
-        private final long idleness;
+        /** event time gap to current process time */
+        private final long timeGap;
 
         /**
          * create a watermark, if currentProcessTime - maxTimestamp > idleness, use currentProcessTime as maxTimestamp
-         * @param idleness
+         * @param timeGap
          */
-        public WithProcessTimeWatermark(Duration idleness) {
-            checkNotNull(idleness, "idleness");
-            checkArgument(!idleness.isNegative(), "idleness cannot be negative");
+        public WithProcessTimeWatermark(Duration timeGap) {
+            checkNotNull(timeGap, "idleness");
+            checkArgument(!timeGap.isNegative(), "idleness cannot be negative");
 
-            this.idleness = idleness.toMillis();
+            this.timeGap = timeGap.toMillis();
 
             // start so that our lowest watermark would be Long.MIN_VALUE.
             this.maxTimestamp = Long.MIN_VALUE + 1;
@@ -85,10 +86,10 @@ public class EventWatermarkWithProcessTimeExample {
         public void onPeriodicEmit(WatermarkOutput output) {
             log.debug("onPeriodicEmit called");
             long currentProcessTime = System.currentTimeMillis();
-            if (currentProcessTime - maxTimestamp > idleness) {
+            if (currentProcessTime - maxTimestamp > timeGap) {
                 log.info("current processing time is {}, current max timestamp is {}, " +
-                        "maxTimestamp has not been updated for {}ms, update maxTimestamp to current processing time",
-                        currentProcessTime, maxTimestamp, idleness);
+                        "maxTimestamp has not been updated by event for {}ms, update maxTimestamp to current processing time",
+                        currentProcessTime, maxTimestamp, timeGap);
                 maxTimestamp = currentProcessTime;
             }
             output.emitWatermark(new Watermark(maxTimestamp - 1));
