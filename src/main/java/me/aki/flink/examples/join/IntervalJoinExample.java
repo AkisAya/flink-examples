@@ -1,4 +1,4 @@
-package me.aki.flink.examples;
+package me.aki.flink.examples.join;
 
 import lombok.extern.slf4j.Slf4j;
 import me.aki.flink.examples.util.TimeUtil;
