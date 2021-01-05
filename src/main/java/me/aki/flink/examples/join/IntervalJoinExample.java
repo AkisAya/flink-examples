@@ -59,7 +59,7 @@ public class IntervalJoinExample {
     private static class MyMapFunc extends RichMapFunction<String, Tuple3<String, String, Long>> {
         @Override
         public Tuple3<String, String, Long> map(String value) throws Exception {
-            String[] res = value.split(",");
+            String[] res = value.split(",\\s*");
             return new Tuple3<>(res[0], res[1], TimeUtil.parse(res[2]));
         }
     }
