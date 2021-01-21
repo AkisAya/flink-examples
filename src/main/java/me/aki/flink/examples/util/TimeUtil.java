@@ -44,4 +44,35 @@ public class TimeUtil {
         LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(millis), ZoneId.of(timeZoneOffset));
         return defaultFormatter.format(localDateTime);
     }
+
+
+    public static final long MS_15MIN = 15 * 60 * 1000;
+    public static final long MS_30MIN = 30 * 60 * 1000;
+    public static final long MS_8HOUR = 8 * 60 * 60 * 1000;
+    public static final long MS_1DAY = 24 * 60 * 60 * 1000;
+
+    /**
+     *
+     * @param ts           当前时间戳
+     * @param windowSize   时窗大小
+     * @param offset       时区偏移
+     * @return
+     */
+    static private long align(long ts, long windowSize, long offset) {
+        // return ((ts + offset) - (ts + offset) % windowSize) - offset;
+        // simplified as below
+        return ts - (ts + offset) % windowSize;
+    }
+
+    public static long alignTo15MinMs(long ts) {
+        return align(ts, MS_15MIN, 0);
+    }
+
+    public static long alignTo30MinMs(long ts) {
+        return align(ts, MS_30MIN, 0);
+    }
+
+    public static long alignTo1DayMs(long ts) {
+        return align(ts, MS_1DAY, MS_8HOUR);
+    }
 }

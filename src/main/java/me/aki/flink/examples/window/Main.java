@@ -13,11 +13,10 @@ public class Main {
         long windowSize = 24 * 3600 * 1000L;
 
         System.out.println(TimeUtil.format(getWindowStartWithOffset(timestamp, offset, windowSize)));
-
-
         System.out.println(TimeUtil.format(timestamp, "+00:00"));
     }
 
+    // copy from TimeWindow#getWindowStartWithOffset
     public static long getWindowStartWithOffset(long timestamp, long offset, long windowSize) {
         return timestamp - (timestamp - offset + windowSize) % windowSize;
     }
