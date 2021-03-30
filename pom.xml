@@ -47,6 +47,14 @@
             <scope>${flink.scope}</scope>
         </dependency>
 
+        <!-- 本地IDE启动时，可以提供一个 web ui，方便查看 job 的拓扑结构 -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-runtime-web_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
+            <scope>${flink.scope}</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
