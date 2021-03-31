@@ -111,6 +111,21 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <artifactSet>
+                                <!--  use exclude configuration to exclude flink specific jars when packaging  -->
+                                <!--  or you may use <scope> above instead and change between compile and provided often-->
+<!--                                <excludes>-->
+<!--                                    <exclude>org.apache.flink:force-shading</exclude>-->
+<!--                                    <exclude>com.google.code.findbgs:jsr305</exclude>-->
+<!--                                    <exclude>org.apache.flink:flink-streaming-java_${scala.binary.version}</exclude>-->
+<!--                                    <exclude>org.apache.flink:flink-table-api-java-bridge_${scala.binary.version}</exclude>-->
+<!--                                    <exclude>org.apache.flink:flink-table-planner-blink_${scala.binary.version}</exclude>-->
+<!--                                    <exclude>org.apache.flink:flink-streaming-scala_${scala.binary.version}</exclude>-->
+<!--                                    <exclude>org.apache.flink:flink-runtime_${scala.binary.version}</exclude>-->
+<!--                                    <exclude>org.apache.flink:flink-table-common</exclude>-->
+<!--                                    <exclude>org.apache.flink:flink-statebackend-rocksdb_${scala.binary.version}</exclude>-->
+<!--                                </excludes>-->
+                            </artifactSet>
                             <filters>
                                 <filter>
                                     <!-- Do not copy the signatures in the META-INF folder.
