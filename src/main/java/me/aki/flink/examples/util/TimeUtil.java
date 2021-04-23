@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class TimeUtil {
 
-    public static final DateTimeFormatter defaultFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     public static final String DEFAULT_ZONE_OFFSET = "+08:00";
 
     public static long parse(String time) {
@@ -30,7 +30,7 @@ public class TimeUtil {
      * @return
      */
     public static long parse(String time, String timeZoneOffset) {
-        LocalDateTime localDateTime = LocalDateTime.parse(time, defaultFormatter);
+        LocalDateTime localDateTime = LocalDateTime.parse(time, DATE_TIME_FORMATTER);
         return localDateTime.toInstant(ZoneOffset.of(timeZoneOffset)).toEpochMilli();
     }
 
@@ -42,7 +42,7 @@ public class TimeUtil {
      */
     public static String format(long millis, String timeZoneOffset) {
         LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(millis), ZoneId.of(timeZoneOffset));
-        return defaultFormatter.format(localDateTime);
+        return DATE_TIME_FORMATTER.format(localDateTime);
     }
 
 
